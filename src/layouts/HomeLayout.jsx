@@ -18,7 +18,7 @@ const HomeLayout = () => {
         </section>
       </header>
       <main className="grid grid-cols-12 gap-4">
-        <aside className="col-span-3">
+        <aside className="col-span-3 sticky top-10 h-fit">
           <LeftAside></LeftAside>
         </aside>
         <section className="col-span-6">

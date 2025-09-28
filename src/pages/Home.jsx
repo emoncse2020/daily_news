@@ -1,5 +1,7 @@
+import CategoryNews from "./CategoryNews";
+
 const Home = () => {
-  return <div>HomePagee</div>;
+  return <div></div>;
 };
 
 export default Home;
