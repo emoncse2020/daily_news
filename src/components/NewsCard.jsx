@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const NewsCard = ({ news }) => {
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -23,9 +25,12 @@ const NewsCard = ({ news }) => {
               {/* Paragraph */}
               <p className="mt-4 text-gray-600 dark:text-gray-400">
                 {news.details.slice(0, 200)}...
-                <button className="mt-2 text-blue-600 hover:underline">
+                <Link
+                  to={`/news-details/${news.id}`}
+                  className="mt-2 text-blue-600 hover:underline"
+                >
                   Read more
-                </button>
+                </Link>
               </p>
 
               {/* Read more... link */}

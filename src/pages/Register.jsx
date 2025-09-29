@@ -1,28 +1,48 @@
 import { Link } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import { use } from "react";
 
 const Register = () => {
+  const { createUser, setUser } = use(AuthContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    // console.log(email, password);
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user.email);
+        setUser(user);
+      })
+      .catch((error) => {
+        const message = error.message;
+        console.log(message);
+      });
+  };
   return (
     <div className="flex my-24 justify-center items-center">
       <div className="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={handleSubmit}>
           {/* Username Input */}
           <div>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block text-sm text-gray-800 dark:text-gray-200"
             >
-              Username
+              Email
             </label>
             <input
-              type="text"
-              id="username"
-              name="name"
+              type="email"
+              id="email"
+              name="email"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
 
           {/* Password Input */}
-          {/* <div className="mt-4">
+          <div className="mt-4">
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
@@ -30,20 +50,21 @@ const Register = () => {
               >
                 Password
               </label>
-              <a
+              {/* <a
                 href="#"
                 className="text-xs text-gray-600 dark:text-gray-400 hover:underline"
               >
                 Forget Password?
-              </a>
+              </a> */}
             </div>
 
             <input
               type="password"
               id="password"
+              name="password"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
-          </div> */}
+          </div>
 
           {/* Sign In Button */}
           <div className="mt-6">

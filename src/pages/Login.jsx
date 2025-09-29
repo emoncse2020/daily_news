@@ -1,11 +1,26 @@
-import { Link } from "react-router";
+import { use } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
+  const { signIn, setUser } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    // console.log(email, password);
+    signIn(email, password)
+      .then((res) => {
+        const user = res.user;
+        setUser(user);
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((error) => {
+        const message = error.message;
+        console.log(message);
+      });
   };
   return (
     <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">

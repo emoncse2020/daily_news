@@ -1,4 +1,4 @@
-import { Suspense, use } from "react";
+import { use } from "react";
 import { NavLink } from "react-router";
 
 const fetchCategory = async () => {

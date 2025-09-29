@@ -8,6 +8,8 @@ import Login from "../pages/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Register";
 import NotFoundPage from "../pages/NotFoundPage";
+import Categories from "../components/Categories";
+import NewsDetails from "../components/NewsDetails";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/category/:id",
         Component: CategoryNews,
-        loader: () => fetch("news.json"),
+        loader: async () => {
+          const res = await fetch("/news.json");
+          if (!res.ok) throw new Error("Failed to fetch news.json");
+          return res.json();
+        },
       },
     ],
   },
@@ -39,10 +45,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //     path: '/news',
-  //     Component:
-  // },
+  {
+    path: "/news-details/:id",
+    Component: NewsDetails,
+    loader: () => fetch("/news.json"),
+    hydrateFallbackElement: <h1>Loading...</h1>,
+  },
   {
     path: "*",
     Component: NotFoundPage,
